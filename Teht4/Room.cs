@@ -5,7 +5,7 @@ namespace Teht4
 {
     class Room
     {
-        public List<Thing> Contents = new List<Thing>();
+        private List<Thing> Contents = new List<Thing>();
 
         public void AddItem(Thing item)
         {
