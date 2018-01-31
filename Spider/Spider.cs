@@ -14,6 +14,7 @@ namespace Spider
             this.venom = venom;
             this.intactLimbs = 8;
             this.size = size;
+            this.limbName = "leg";
         }
 
         public Spider() : this("default spider", "nothing", 1)
@@ -31,16 +32,16 @@ namespace Spider
         {
             if (intactLimbs <= 0)
             {
-                return "The spider has no legs left.";
+                return "The spider has no " + limbName + "s left.";
             }
             else
             {
                 intactLimbs--;
-                return "You pull a leg off the " + name + ". You monster. " + intactLimbs + " legs remain.";
+                return "You pull a " + limbName + " off the " + name + ". You monster. " + intactLimbs + " " + limbName + "s remain.";
             }
         }
 
-        public int CountLegs()
+        public override int CountLegs()
         {
             return intactLimbs;
         }

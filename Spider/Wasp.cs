@@ -14,18 +14,32 @@ namespace Spider
             this.venom = venom;
             this.intactLimbs = 2;
             this.size = size;
+            this.limbName = "wing";
         }
 
         public override string Bite()
         {
-            throw new NotImplementedException();
+            return "The " + name + " stings you, injecting you with " + venom + "!";
         }
 
 
 
         public override string Tear()
         {
-            throw new NotImplementedException();
+            if (intactLimbs <= 0)
+            {
+                return "The wasp has no " + limbName + "s left.";
+            }
+            else
+            {
+                intactLimbs--;
+                return "You pull a " + limbName + " off the " + name + ". You monster. " + intactLimbs + " " + limbName + "s remain.";
+            }
+        }
+
+        public override int CountLegs()
+        {
+            return intactLimbs;
         }
 
         public override bool Equals(object obj)
@@ -40,5 +54,7 @@ namespace Spider
 
             return true;
         }
+
+
     }
 }

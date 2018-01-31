@@ -8,14 +8,16 @@ namespace Spider
         {
             //RunTest();
             Console.WriteLine("Preparing crevice...");
-            Crevice crevice = new Crevice(7);
+            Crevice crevice = new Crevice(8);
             Console.WriteLine("Creating bugs...");
             crevice.addBug(new Spider("brown recluse spider", "deadly necrotoxin", 3));
             crevice.addBug(new Spider("black widow spider", "deadly neurotoxin", 3));
             crevice.addBug(new Spider("giant spider", "2d4 poison damage", 1000000));
             crevice.addBug(new Spider("giant cave spider", "paralytic venom", 10000000));
             crevice.addBug(new Spider("Australian funnel-web spider", "nasty mix of atracotoxins", 10));
-            crevice.addBug(new Wasp("Ordinary wasp", "Wasp acid", 4));
+            crevice.addBug(new Wasp("ordinary wasp", "alkaline venom", 4));
+            crevice.addBug(new Wasp("Asian giant hornet", "alkali and neurotoxins", 8));
+            crevice.addBug(new Wasp("dire wasp", "its living parasitic larvae", 40));
             Console.WriteLine("Ready!");
             MainLoop(crevice);
         }
@@ -24,7 +26,7 @@ namespace Spider
         {
             bool keepGoing = true;
             bool haveSpider = false;
-            Spider spider = null;
+            Bug spider = null;
 
             while (keepGoing)
             {
@@ -33,19 +35,20 @@ namespace Spider
                 {
                     Console.WriteLine("You see here a crevice.");
                     Console.WriteLine("[1] Poke at it");
-                    Console.WriteLine("[2] Retrieve a spider");
+                    Console.WriteLine("[2] Retrieve a bug");
                     Console.WriteLine("[q] Quit");
                 }
                 else
                 {
                     Console.WriteLine("You see here a crevice, and a " + spider.name + ".");
                     Console.WriteLine("[1] Poke at the crevice");
-                    Console.WriteLine("[2] Retrieve a new spider");
-                    Console.WriteLine("[3] Pull a spider leg");
-                    Console.WriteLine("[4] Count spider legs");
-                    Console.WriteLine("[5] Discard spider");
+                    Console.WriteLine("[2] Retrieve a new bug");
+                    Console.WriteLine("[3] Pull a limb off");
+                    Console.WriteLine("[4] Count limbs");
+                    Console.WriteLine("[5] Discard bug");
                     Console.WriteLine("[q] Quit");
                 }
+                Console.Write("> ");
                 String input = Console.ReadLine();
                 switch (input)
                 {
@@ -54,8 +57,8 @@ namespace Spider
                         Console.WriteLine(crevice.Poke());
                         break;
                     case "2":
-                        //new spider
-                        Spider newSpider;
+                        //new bug
+                        Bug newSpider;
                         try
                         {
                             newSpider = crevice.getBug();
@@ -69,7 +72,7 @@ namespace Spider
 
                         if (haveSpider)
                         {
-                            Console.WriteLine("You toss away your previous spider, and retrieve a shiny new " + newSpider.name + "!");
+                            Console.WriteLine("You toss away your previous bug, and retrieve a shiny new " + newSpider.name + "!");
                         }
                         else
                         {
@@ -83,12 +86,12 @@ namespace Spider
                     case "3":
                         //pull leg
                         if (!haveSpider) goto default; //considered harmful :^)
-                        spider.Tear();
+                        Console.WriteLine(spider.Tear());
                         break;
                     case "4":
                         //count legs
                         if (!haveSpider) goto default;
-                        Console.WriteLine("{0} has {1} legs remaining.", spider.name, spider.CountLegs());
+                        Console.WriteLine("{0} has {1} {2}s remaining.", spider.name, spider.CountLegs(), spider.limbName);
                         break;
                     case "5":
                         //discard
@@ -96,7 +99,7 @@ namespace Spider
                         Console.WriteLine("You drop the {0}, and quickly lose track of it.", spider.name);
                         spider = null;
                         haveSpider = false;
-                        Console.WriteLine("But with non-deterministic garbage collection, can you ever be sure the spider is really gone?");
+                        Console.WriteLine("But with non-deterministic garbage collection, can you ever be sure the bug is really gone?");
                         break;
                     case "q":
                     case "Q":
